@@ -1,6 +1,6 @@
 require 'open-uri'
 
-class RirDownloader
+class Downloader
   def initialize
 	@cache_dir_path = File.join Dir.home, ".netblockfinder"
 	Dir.mkdir(@cache_dir_path) unless Dir.exists? @cache_dir_path
