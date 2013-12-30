@@ -1,3 +1,18 @@
+class Assignment
+
+  attr_reader :source, :country_code
+
+  def initialize attributes
+	@source = attributes['registry']
+	@country_code = attributes['country_code']
+  end
+
+  def invalid?
+	country_code == '*' || source.delete('.') =~ /\d/
+  end
+
+end
+
 class RirParser
 
   KEYS = %w(registry country_code type start value date status)
@@ -9,8 +24,8 @@ class RirParser
   def parse
 	@lines.each_line.map do |line| 
 	  next if line.start_with? '#'
-	  assign = Hash[KEYS.zip(line.chomp.split('|'))]
-	end.compact.reject {|a| a['country_code'] == '*' || a['registry'].delete('.') =~ /\d/}
+	  Assignment.new Hash[KEYS.zip(line.chomp.split('|'))]
+	end.compact.reject {|a| a.invalid?}
   end
 
 end

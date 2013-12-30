@@ -8,14 +8,14 @@ describe "Regional Internet Registry Parser" do
 	content = File.open(test_file_path)
 	results = RirParser.new(content).parse
 	expect(results.size).to eq(11)
-	expect(results.first['registry']).to eq('apnic')
-	expect(results.first['country_code']).to eq('JP')
-	expect(results.last['registry']).to eq('ripencc')
+	expect(results.first.source).to eq('apnic')
+	expect(results.first.country_code).to eq('JP')
+	expect(results.last.source).to eq('ripencc')
   end	
 
   it "parses asn type" do
 	line = StringIO.new("apnic|JP|asn|173|1|20020801|allocated")
 	result = RirParser.new(line).parse
-    expect(result.first['registry']).to eq('apnic')	
+    expect(result.first.source).to eq('apnic')	
   end
 end
