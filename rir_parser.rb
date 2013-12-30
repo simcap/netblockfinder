@@ -34,6 +34,10 @@ class RirParser
 
   KEYS = %w(registry country_code type start value date status)
 
+  def self.from_file filepath
+	new File.open(filepath).read
+  end
+
   def initialize lines
 	@lines = lines
   end
