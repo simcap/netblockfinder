@@ -4,7 +4,7 @@ describe "Regional Internet Registry Parser" do
 
   let(:test_file_path) { File.join(File.dirname(__FILE__), "test_rir_data") }
 
-  it "parses sample rir file" do
+  it "parses correct number of assignments from sample rir file" do
 	results = RirParser.from_file(test_file_path).parse
 	expect(results.size).to eq(11)
 	expect(results.first.source).to eq('apnic')
