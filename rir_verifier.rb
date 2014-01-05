@@ -10,11 +10,18 @@ class RirVerifier
 
   def verify
 	FILENAMES.each do |f|
-	  file_content = File.open(File.join @dir_path, "#{f}.md5").read
-	  checksum = file_content.match(/([a-z0-9]{32})$/).captures.first
-	  file_checksum = Digest::MD5.file(File.join(@dir_path, f)).hexdigest
-	  raise "File '#{f}' has invalid checksum" if checksum != file_checksum
+	  raise "File '#{f}' has invalid checksum" if original_checksum(f) != file_checksum(f)
 	end
 	true
   end
+
+  def original_checksum filename
+	file_content = File.open(File.join @dir_path, "#{filename}.md5").read
+	file_content.match(/([a-z0-9]{32})$/).captures.first
+  end
+
+  def file_checksum filename
+	Digest::MD5.file(File.join @dir_path, filename).hexdigest
+  end
+
 end
