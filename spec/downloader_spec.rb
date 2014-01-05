@@ -1,7 +1,7 @@
 require_relative '../downloader'
 require 'fileutils'
 
-describe 'Downloader' do
+describe 'Downloader', slow: true do
 
   let(:cache_dir_path) { File.join(Dir.home, ".netblockfinder") }
 
